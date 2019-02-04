@@ -137,11 +137,6 @@ def checkResFmt( result ):
         print "Test break."
         return False
 
-    if len(result) != NUM_LENGTH:
-        return False
-    elif result[1] != "A" or result[3] != "B":
-        return False
-
     try:
         A = int(result[0])
         B = int(result[2])

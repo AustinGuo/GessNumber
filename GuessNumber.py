@@ -134,7 +134,6 @@ def guessNumberAlgorithm():
 
 def checkResFmt( result ):
     if not re.compile("^\d[AB]\d[AB]$", re.IGNORECASE).match(result):
-        print "Test break."
         return False
 
     try:
@@ -148,48 +147,52 @@ def checkResFmt( result ):
 
     return True
 
-tryCount = 0
-ansList = getNumTable()
-print "ansList len =", len(ansList)
-tryNumber = ansList[random.randrange(len(ansList))]
-
-while True:
-    print "I guess the number is", "".join(tryNumber)
-
-    while True:
-        print "Enter the result"
-        result = raw_input( "format:[XAXB](X: 0~" + str(NUM_LENGTH) + "):")
-        if checkResFmt(result):
-            break
-        print "Format ERROR! Please check the format again."
-
-    compResult = [int(result[0]), int(result[2])]
-
-    resList = []
-
-    tryCount+=1
-
-    # print "Try", "".join(tryNumber), ". This is the", tryCount, "times tryed."
-    # print "The result is", compResult[0], "A", compResult[1], "B"
-
-    for compNum in ansList:
-        res = numIsMatch( compNum, tryNumber )
-        if (compResult[0] == res[0] and compResult[1] == res[1]):
-            resList.append(compNum)
-
-    ansList = resList
+def main():
+    tryCount = 0
+    ansList = getNumTable()
     print "ansList len =", len(ansList)
-
-    if compResult[0] == NUM_LENGTH:
-        print "Total try", tryCount, "times. The answer is", "".join(ansList[0])
-        break
-    elif len(ansList) == 1:
-        print "The answer is", "".join(ansList[0]), ". Total try", tryCount+1, "times"
-        break
-    elif len(ansList) == 0:
-        print "Error! Can NOT find the answer. You are cheating"
-        break
-
     tryNumber = ansList[random.randrange(len(ansList))]
 
-os.system("pause")
+    while True:
+        pass
+        print "I guess the number is", "".join(tryNumber)
+
+        while True:
+            print "Enter the result"
+            result = raw_input( "format:[XAXB](X: 0~" + str(NUM_LENGTH) + "):")
+            if checkResFmt(result):
+                break
+            print "Format ERROR! Please check the format again."
+
+        compResult = [int(result[0]), int(result[2])]
+
+        resList = []
+
+        tryCount+=1
+
+        # print "Try", "".join(tryNumber), ". This is the", tryCount, "times tryed."
+        # print "The result is", compResult[0], "A", compResult[1], "B"
+
+        for compNum in ansList:
+            res = numIsMatch( compNum, tryNumber )
+            if (compResult[0] == res[0] and compResult[1] == res[1]):
+                resList.append(compNum)
+
+        ansList = resList
+        print "ansList len =", len(ansList)
+
+        if compResult[0] == NUM_LENGTH:
+            print "Total try", tryCount, "times. The answer is", "".join(ansList[0])
+            return
+        elif len(ansList) == 1:
+            print "The answer is", "".join(ansList[0]), ". Total try", tryCount+1, "times"
+            return
+        elif len(ansList) == 0:
+            print "Error! Can NOT find the answer. You are cheating"
+            return
+
+        tryNumber = ansList[random.randrange(len(ansList))]
+
+if __name__ == '__main__':
+    main()
+    os.system("pause")

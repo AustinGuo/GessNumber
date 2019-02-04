@@ -1,27 +1,28 @@
-#!/usr/bin/python
+#!/usr/bin/python 2.7
+
+import os
+import re
 import random
 
 KUO_ERROR = -1
-
-guessNumLength = 4
-resultLength = 4
+NUM_LENGTH = 4
 
 def stringtToCharacterArray( strNum ):
     charArray = []
     for i in strNum:
         charArray.append(i)
 
-    while len(charArray) < guessNumLength:
+    while len(charArray) < NUM_LENGTH:
         charArray.insert(0, "0")
 
     return charArray
 
 def checkNumber( checkNum ):
-    if len(checkNum) != guessNumLength:
+    if len(checkNum) != NUM_LENGTH:
         return False
 
-    for k in range( guessNumLength ):
-        for j in range (k+1, guessNumLength ):
+    for k in range( NUM_LENGTH ):
+        for j in range (k+1, NUM_LENGTH ):
             if checkNum[k] == checkNum[j]:
                 return False
 
@@ -30,12 +31,12 @@ def checkNumber( checkNum ):
 def numIsMatch( s1, s2 ):
     resultA = 0
     resultB = 0
-    for k in range( guessNumLength ):
+    for k in range( NUM_LENGTH ):
         if s1[k] == s2[k]:
             resultA += 1
 
-    for i in range( guessNumLength ):
-        for j in range( guessNumLength ):
+    for i in range( NUM_LENGTH ):
+        for j in range( NUM_LENGTH ):
             if s1[i] == s2[j]:
                 resultB += 1
 
@@ -45,7 +46,7 @@ def numIsMatch( s1, s2 ):
 
 def getNumTable():
     table = []
-    for i in range( 0, 10**guessNumLength ):
+    for i in range( 0, 10**NUM_LENGTH ):
         charNumber = stringtToCharacterArray(str(i))
         if checkNumber(charNumber):
             table.append(charNumber)
@@ -81,7 +82,7 @@ def guessNumber( questNum ):
 
         ansList = resList
 
-        if compResult[0] == guessNumLength or len(ansList) == 0:
+        if compResult[0] == NUM_LENGTH or len(ansList) == 0:
             break;
 
         tryNumber = ansList[random.randrange(len(ansList))]
@@ -132,7 +133,11 @@ def guessNumberAlgorithm():
     return
 
 def checkResFmt( result ):
-    if len(result) != resultLength:
+    if not re.compile("^\d[AB]\d[AB]$", re.IGNORECASE).match(result):
+        print "Test break."
+        return False
+
+    if len(result) != NUM_LENGTH:
         return False
     elif result[1] != "A" or result[3] != "B":
         return False
@@ -143,7 +148,7 @@ def checkResFmt( result ):
     except ValueError:
         return False
 
-    if A+B > guessNumLength:
+    if A+B > NUM_LENGTH:
         return False
 
     return True
@@ -158,7 +163,7 @@ while True:
 
     while True:
         print "Enter the result"
-        result = raw_input( "format:[XAXB](X: 0~" + str(guessNumLength) + "):")
+        result = raw_input( "format:[XAXB](X: 0~" + str(NUM_LENGTH) + "):")
         if checkResFmt(result):
             break
         print "Format ERROR! Please check the format again."
@@ -180,7 +185,7 @@ while True:
     ansList = resList
     print "ansList len =", len(ansList)
 
-    if compResult[0] == guessNumLength:
+    if compResult[0] == NUM_LENGTH:
         print "Total try", tryCount, "times. The answer is", "".join(ansList[0])
         break
     elif len(ansList) == 1:
@@ -192,4 +197,4 @@ while True:
 
     tryNumber = ansList[random.randrange(len(ansList))]
 
-
+os.system("pause")

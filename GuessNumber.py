@@ -1,4 +1,5 @@
 #!/usr/bin/python 2.7
+# -*- coding: utf8 -*-
 
 import os
 import re

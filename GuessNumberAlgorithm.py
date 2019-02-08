@@ -1,4 +1,6 @@
 #!/usr/bin/python
+import sys; sys.path.append('.\\modules\\')
+
 KUO_ERROR = -1
 
 guessNumLength = 4
@@ -37,7 +39,7 @@ def numIsMatch( s1, s2 ):
                 resultB += 1
 
     resultB -= resultA
-    
+
     return (resultA, resultB)
 
 def getNumTable():
@@ -57,35 +59,35 @@ def guessNumber( questNum ):
     while checkNumber(questNum) == False:
         inputNumber = raw_input("Please enter four number: ")
         questNum = stringtToCharacterArray(str(inputNumber))
-    
+
     ansList = getNumTable()
-    
+
     while True:
         tryNumber = ansList[0]
         resList = []
-        
+
         compResult = numIsMatch( questNum, tryNumber )
-        
+
         tryCount+=1
-        
+
         # print "This is the", tryCount, "times tryed."
         # print "The result is", compResult[0], "A", compResult[1], "B"
-        
+
         for compNum in ansList:
             res = numIsMatch( compNum, tryNumber )
             if (compResult[0] == res[0] and compResult[1] == res[1]):
                 resList.append(compNum)
 
         ansList = resList
-        
+
         if compResult[0] == guessNumLength or len(ansList) == 0:
             break;
-    
+
     if len(ansList) != 1:
         print "Error! Can NOT find the answer"
     else:
         print "Total try", tryCount, "times, you entered number is", "".join(ansList[0])
-    
+
     return tryCount
 
 while True:
@@ -110,7 +112,7 @@ while True:
 
         ansTable[count-1] += 1
         total += count
-        
+
         # cnt += 1
         # if cnt >= 10:
         #     break

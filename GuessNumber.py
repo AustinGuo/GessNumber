@@ -4,6 +4,7 @@
 import os
 import re
 import random
+import sys; sys.path.append('.\\modules\\')
 
 KUO_ERROR = -1
 NUM_LENGTH = 4

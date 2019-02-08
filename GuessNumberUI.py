@@ -1,8 +1,9 @@
-
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
+import sys; sys.path.append('.\\modules\\')
 from Tkinter import *
+
 root = Tk()
 
 li     = ['C','python','php','html','SQL','java']

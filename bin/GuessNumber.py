@@ -135,14 +135,14 @@ def guessNumberAlgorithm():
     return
 
 def checkResFmt( result ):
-    if not re.compile("^\d[AB]\d[AB]$", re.IGNORECASE).match(result):
+    if re.compile('^Q$', re.IGNORECASE).match(result):
+        exit(0)
+
+    if not re.compile('^\d[AB]\d[AB]$', re.IGNORECASE).match(result):
         return False
 
-    try:
-        A = int(result[0])
-        B = int(result[2])
-    except ValueError:
-        return False
+    A = int(result[0])
+    B = int(result[2])
 
     if A+B > NUM_LENGTH:
         return False
